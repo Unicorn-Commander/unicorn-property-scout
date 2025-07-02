@@ -1,0 +1,26 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Build Docker image
+      run: docker compose build
+      working-directory: ./Development/SearXNG-Real-Estate
+
+    - name: Run tests (Placeholder)
+      run: echo "No tests configured yet. Add your test commands here."
+
+    # Add steps for deployment here (e.g., push to Docker registry, deploy to server)

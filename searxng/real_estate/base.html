@@ -25,6 +25,7 @@
   <!--<![endif]-->
   {% block head %}
   <link title="{{ instance_name }}" type="application/opensearchdescription+xml" rel="search" href="{{ opensearch_url }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='themes/real_estate/style.css') }}">
   {% endblock %}
   <link rel="icon" href="{{ url_for('static', filename='img/favicon.png') }}" sizes="any">
   <link rel="icon" href="{{ url_for('static', filename='img/favicon.svg') }}" type="image/svg+xml">

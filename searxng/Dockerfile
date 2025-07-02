@@ -17,6 +17,9 @@ RUN mkdir -p /etc/searxng
 # Copy our own uwsgi.ini (optional)
 COPY uwsgi.ini /etc/searxng/uwsgi.ini
 
+# Copy custom theme
+
+
 # The settings.yml will be mounted at runtime
 
 # Return to non-root user

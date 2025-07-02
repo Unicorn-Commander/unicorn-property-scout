@@ -1,0 +1,107 @@
+{% extends "simple/base.html" %}
+{% from 'simple/icons.html' import icon_big %}
+<form id="search" method="{{ method or 'POST' }}" action="{{ url_for('search') }}" role="search">
+  <div id="search_header">
+    <a id="search_logo" href="{{ url_for('index') }}" tabindex="0" title="{{ _('Display the front page') }}">
+      <span hidden>SearXNG</span>
+      {% include 'simple/searxng-wordmark.min.svg' without context %}
+    </a>
+    <div id="search_view">
+      <div class="search_box">
+        <input id="q" name="q" type="text" placeholder="{{ _('Search for...') }}" tabindex="1" autocomplete="off" autocapitalize="none" spellcheck="false" autocorrect="off" dir="auto" value="{{ q or '' }}">
+        <button id="clear_search" type="reset" aria-label="{{ _('clear') }}" class="hide_if_nojs"><span>{{ icon_big('close') }}</span><span class="show_if_nojs">{{ _('clear') }}</span></button>
+        <button id="send_search" type="submit" {%- if search_on_category_select -%}name="category_{{ selected_categories[0]|replace(' ', '_') }}"{%- endif -%} aria-label="{{ _('search') }}"><span class="hide_if_nojs">{{ icon_big('search') }}</span><span class="show_if_nojs">{{ _('search') }}</span></button>
+        <div class="autocomplete hide_if_nojs"><ul></ul></div>
+      </div>
+    </div>
+    {% set display_tooltip = true %}
+    {% include 'simple/categories.html' %}
+  </div>
+
+  <div class="advanced-search-filters">
+    <h2>Advanced Search Filters</h2>
+
+    <h3>Geographic Search</h3>
+    <div class="filter-group">
+      <label for="radius-search">Radius Search (miles):</label>
+      <input type="number" id="radius-search" name="radius" placeholder="e.g., 5">
+      <label for="center-point">Center Point (Lat,Lon or Address):</label>
+      <input type="text" id="center-point" name="center_point" placeholder="e.g., 34.0522, -118.2437 or 123 Main St">
+    </div>
+    <div class="filter-group">
+      <label for="zip-codes">Multiple ZIP Codes (comma-separated):</label>
+      <input type="text" id="zip-codes" name="zip_codes" placeholder="e.g., 90210, 10001">
+    </div>
+    <div class="filter-group">
+      <label for="school-district">School District:</label>
+      <input type="text" id="school-district" name="school_district" placeholder="e.g., Los Angeles Unified">
+    </div>
+    <div class="filter-group">
+      <label>Map-based Search:</label>
+      <p>[Placeholder for "Draw polygon on map" functionality]</p>
+    </div>
+
+    <h3>Property Filters</h3>
+    <div class="filter-group">
+      <label for="property-type">Property Type:</label>
+      <select id="property-type" name="property_type">
+        <option value="">Any</option>
+        <option value="single_family">Single Family</option>
+        <option value="multi_family">Multi-Family</option>
+        <option value="condo">Condo</option>
+        <option value="townhouse">Townhouse</option>
+        <option value="land">Land</option>
+        <option value="commercial">Commercial</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <label for="year-built-min">Year Built (Min):</label>
+      <input type="number" id="year-built-min" name="year_built_min" placeholder="e.g., 1900">
+      <label for="year-built-max">Year Built (Max):</label>
+      <input type="number" id="year-built-max" name="year_built_max" placeholder="e.g., 2020">
+    </div>
+    <div class="filter-group">
+      <label for="lot-size-min">Lot Size (SqFt Min):</label>
+      <input type="number" id="lot-size-min" name="lot_size_min" placeholder="e.g., 5000">
+      <label for="lot-size-max">Lot Size (SqFt Max):</label>
+      <input type="number" id="lot-size-max" name="lot_size_max" placeholder="e.g., 10000">
+    </div>
+    <div class="filter-group">
+      <label for="zoning-type">Zoning Type:</label>
+      <input type="text" id="zoning-type" name="zoning_type" placeholder="e.g., R-1">
+    </div>
+    <div class="filter-group">
+      <label for="sale-history">Sale History:</label>
+      <select id="sale-history" name="sale_history">
+        <option value="">Any</option>
+        <option value="last_year">Last Year</option>
+        <option value="last_5_years">Last 5 Years</option>
+        <option value="all">All Available</option>
+      </select>
+    </div>
+
+    <h3>Data Source Selection</h3>
+    <div class="filter-group">
+      <label><input type="checkbox" name="engine_census_bureau" value="1" checked> US Census Bureau</label>
+      <label><input type="checkbox" name="engine_openstreetmap_nominatim" value="1" checked> OpenStreetMap/Nominatim</label>
+      <label><input type="checkbox" name="engine_rentcast" value="1"> RentCast</label>
+      <label><input type="checkbox" name="engine_schooldigger" value="1"> SchoolDigger</label>
+      <!-- Add more engines as they are implemented -->
+    </div>
+    <div class="filter-group">
+      <label>
+        <input type="radio" name="source_preference" value="free" checked> Prefer Free Sources
+      </label>
+      <label>
+        <input type="radio" name="source_preference" value="paid"> Prefer Paid Sources
+      </label>
+    </div>
+    <div class="filter-group">
+      <label for="timeout-preference">Timeout Preference (seconds):</label>
+      <input type="number" id="timeout-preference" name="timeout_preference" placeholder="e.g., 10">
+    </div>
+  </div>
+
+  <input type="hidden" name="theme" value="{{ theme }}" >
+  {% if timeout_limit %}<input type="hidden" name="timeout_limit" value="{{ timeout_limit|e }}" >{% endif %}
+</form>

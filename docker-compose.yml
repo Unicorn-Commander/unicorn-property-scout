@@ -22,14 +22,15 @@ services:
     restart: unless-stopped
     volumes:
       - ./searxng:/etc/searxng:rw
+      - ./searxng/themes/real_estate:/usr/local/searxng/searx/static/themes/real_estate
+      - ./searxng/themes/real_estate/templates:/usr/local/searxng/searx/templates/real_estate
     ports:
-      - "18888:18888"
+      - "0.0.0.0:18888:18888"
     networks:
       - unicorn-network-real-estate
     environment:
       - BIND_ADDRESS=0.0.0.0:18888
       - INSTANCE_NAME="Unicorn Commander Real Estate"
-      - SEARXNG_BASE_URL=http://localhost:18888/
       - SEARXNG_REDIS_URL=redis://unicorn-redis-real-estate:6379/0
       - SEARXNG_SECRET=${SEARXNG_SECRET}
       - UWSGI_WORKERS=4

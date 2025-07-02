@@ -1,0 +1,185 @@
+{% extends "real_estate/base.html" %}
+{% from 'simple/icons.html' import icon_big %}
+{% block content %}
+<div class="real-estate-homepage">
+    <div class="header-section">
+        <h1>🏡 Real Estate Intelligence</h1>
+        <p>"Your Private Property Intelligence Hub"</p>
+    </div>
+
+    <div class="search-section">
+        <form action="{{ url_for('search') }}" method="get">
+            <input 
+                type="text" 
+                name="q" 
+                placeholder="Search: Address, ZIP Code, City, or Parcel Number..." 
+                class="search-input"
+                autocomplete="off"
+                spellcheck="false"
+            >
+            <button type="submit" class="search-button">
+                🔍 Search Properties
+            </button>
+        </form>
+        
+        <div class="quick-filters">
+            <h3>Quick Search Categories:</h3>
+            <label>
+                <input type="checkbox" name="category" value="properties" checked> 
+                🏠 Properties
+            </label>
+            <label>
+                <input type="checkbox" name="category" value="deeds"> 
+                📋 Property Records
+            </label>
+            <label>
+                <input type="checkbox" name="category" value="demographics"> 
+                📊 Demographics
+            </label>
+            <label>
+                <input type="checkbox" name="category" value="schools"> 
+                🎓 Schools & Education
+            </label>
+            <label>
+                <input type="checkbox" name="category" value="market_data"> 
+                📈 Market Analysis
+            </label>
+        </div>
+        
+        <div style="text-align: center; margin-top: 1rem;">
+            <a href="{{ url_for('preferences') }}" class="advanced-search-link">
+                {{ icon_big('settings') }} Advanced Search & Settings
+            </a>
+        </div>
+    </div>
+
+    <div class="insights-section">
+        <div class="saved-searches">
+            <h2>💾 Saved Searches</h2>
+            <ul>
+                <li>🌆 Downtown SF Properties</li>
+                <li>📮 94110 ZIP Code Analysis</li>
+                <li>🏚️ Foreclosure Opportunities</li>
+                <li>🏫 Top-Rated School Districts</li>
+            </ul>
+            <div style="margin-top: 1rem; text-align: center;">
+                <small style="color: var(--text-muted);">
+                    <a href="#" style="color: var(--primary-color);">Manage Saved Searches →</a>
+                </small>
+            </div>
+        </div>
+        
+        <div class="market-insights">
+            <h2>📊 Market Insights</h2>
+            <ul>
+                <li>💰 Median Price: <strong>$485K</strong> <span style="color: #10b981;">↗ +2.1%</span></li>
+                <li>📦 Inventory: <strong>2,847 units</strong> <span style="color: #ef4444;">↓ 12%</span></li>
+                <li>⏱️ Days on Market: <strong>23 days</strong> <span style="color: #f59e0b;">→ stable</span></li>
+                <li>🏠 New Listings: <strong>184 this week</strong></li>
+            </ul>
+            <div style="margin-top: 1rem; text-align: center;">
+                <small style="color: var(--text-muted);">
+                    Data updated: <span style="color: var(--accent-color);">2 hours ago</span>
+                </small>
+            </div>
+        </div>
+    </div>
+
+    <div class="recent-popular-section">
+        <div class="recent-searches">
+            <h2>🕒 Recent Searches</h2>
+            <ul>
+                <li>🏠 123 Main Street, San Francisco</li>
+                <li>👥 Smith Family Property Portfolio</li>
+                <li>📊 94102 Demographics & Housing</li>
+                <li>🏫 Mission District Schools</li>
+                <li>💰 Castro Valley Price Trends</li>
+            </ul>
+        </div>
+        
+        <div class="popular-searches">
+            <h2>🔥 Trending Searches</h2>
+            <ul>
+                <li>🎓 School District Ratings</li>
+                <li>📈 Property Value Trends</li>
+                <li>🏠 New Construction Permits</li>
+                <li>🌊 Flood Zone Properties</li>
+                <li>🚇 Transit-Accessible Homes</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Features Overview -->
+    <div style="background: var(--bg-card); padding: 2rem; border-radius: var(--border-radius-lg); box-shadow: var(--shadow-md); margin-top: 2rem; border: 1px solid var(--border-color);">
+        <h2 style="text-align: center; color: var(--text-primary); margin-bottom: 2rem; font-size: 1.5rem;">
+            🚀 Powered by Magic Unicorn Technology
+        </h2>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
+            <div style="text-align: center; padding: 1rem;">
+                <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🛡️</div>
+                <h3 style="color: var(--primary-color); margin: 0.5rem 0;">Privacy First</h3>
+                <p style="color: var(--text-secondary); font-size: 0.875rem; margin: 0;">
+                    No tracking, no data selling. Your searches stay private.
+                </p>
+            </div>
+            
+            <div style="text-align: center; padding: 1rem;">
+                <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">⚡</div>
+                <h3 style="color: var(--primary-color); margin: 0.5rem 0;">Lightning Fast</h3>
+                <p style="color: var(--text-secondary); font-size: 0.875rem; margin: 0;">
+                    Real-time data from multiple sources in milliseconds.
+                </p>
+            </div>
+            
+            <div style="text-align: center; padding: 1rem;">
+                <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🎯</div>
+                <h3 style="color: var(--primary-color); margin: 0.5rem 0;">Real Estate Focused</h3>
+                <p style="color: var(--text-secondary); font-size: 0.875rem; margin: 0;">
+                    Purpose-built for property professionals and investors.
+                </p>
+            </div>
+            
+            <div style="text-align: center; padding: 1rem;">
+                <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🤖</div>
+                <h3 style="color: var(--primary-color); margin: 0.5rem 0;">AI Enhanced</h3>
+                <p style="color: var(--text-secondary); font-size: 0.875rem; margin: 0;">
+                    Smart property matching and market insights.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Add some interactive behavior
+document.addEventListener('DOMContentLoaded', function() {
+    // Auto-focus search input
+    const searchInput = document.querySelector('.search-input');
+    if (searchInput) {
+        searchInput.focus();
+    }
+    
+    // Quick filters functionality
+    const quickFilters = document.querySelectorAll('.quick-filters input[type="checkbox"]');
+    quickFilters.forEach(filter => {
+        filter.addEventListener('change', function() {
+            // Add visual feedback
+            const label = this.closest('label');
+            if (this.checked) {
+                label.style.background = 'rgba(99, 102, 241, 0.1)';
+                label.style.borderColor = 'var(--primary-color)';
+            } else {
+                label.style.background = 'var(--bg-secondary)';
+                label.style.borderColor = 'var(--border-color)';
+            }
+        });
+    });
+    
+    // Add search suggestions (placeholder for future enhancement)
+    searchInput?.addEventListener('input', function() {
+        // Future: Add autocomplete suggestions
+    });
+});
+</script>
+{% endblock %}

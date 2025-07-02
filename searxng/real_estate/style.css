@@ -1,0 +1,269 @@
+/* Color Palette (inspired by Magic Unicorn & Unicorn Commander) */
+:root {
+    --primary-color: #6A0DAD; /* Deep Purple - Magic */
+    --secondary-color: #FFD700; /* Gold - Commander */
+    --accent-color: #00CED1; /* Dark Turquoise - Tech/Innovation */
+    --background-color: #F0F2F5; /* Light Gray - Clean */
+    --text-color: #333333; /* Dark Gray - Readability */
+    --light-text-color: #666666;
+    --border-color: #CCCCCC;
+    --hover-color: #8A2BE2; /* Blue Violet - Interactive */
+}
+
+/* General Body Styling */
+body {
+    font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif; /* Modern, clean font */
+    background-color: var(--background-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+}
+
+/* Header Styling */
+#search_header {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#search_logo svg {
+    height: 40px; /* Adjust as needed */
+    fill: white; /* Ensure logo is visible on dark background */
+}
+
+/* Search Box Styling */
+.search_box {
+    display: flex;
+    border: 1px solid var(--border-color);
+    border-radius: 25px;
+    overflow: hidden;
+    background-color: white;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.search_box input[type="text"] {
+    border: none;
+    padding: 10px 15px;
+    flex-grow: 1;
+    outline: none;
+    font-size: 16px;
+}
+
+.search_box button {
+    background-color: var(--secondary-color);
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    color: var(--text-color);
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.search_box button:hover {
+    background-color: var(--hover-color);
+    color: white;
+}
+
+/* Homepage Layout (from index.html) */
+.real-estate-homepage {
+    max-width: 960px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.header-section h1 {
+    color: var(--primary-color);
+    text-align: center;
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+.header-section p {
+    text-align: center;
+    color: var(--light-text-color);
+    font-style: italic;
+    margin-bottom: 30px;
+}
+
+.search-section form {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.search-section .search-input {
+    flex-grow: 1;
+    margin-right: 10px;
+}
+
+.search-section .advanced-search-link {
+    display: block;
+    text-align: center;
+    margin-top: 10px;
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.quick-filters h3 {
+    color: var(--primary-color);
+    margin-bottom: 10px;
+}
+
+.quick-filters label {
+    display: inline-block;
+    margin-right: 15px;
+    margin-bottom: 10px;
+    font-size: 0.9em;
+}
+
+.insights-section, .recent-popular-section {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+.saved-searches, .market-insights, .recent-searches, .popular-searches {
+    flex-basis: 48%;
+    background-color: var(--background-color);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.insights-section h2, .recent-popular-section h2 {
+    color: var(--primary-color);
+    margin-top: 0;
+}
+
+.insights-section ul, .recent-popular-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.insights-section li, .recent-popular-section li {
+    margin-bottom: 5px;
+    color: var(--text-color);
+}
+
+/* Advanced Search Filters (from search.html) */
+.advanced-search-filters {
+    max-width: 960px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.advanced-search-filters h2 {
+    color: var(--primary-color);
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.advanced-search-filters h3 {
+    color: var(--accent-color);
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 5px;
+    margin-top: 25px;
+    margin-bottom: 15px;
+}
+
+.filter-group {
+    margin-bottom: 15px;
+}
+
+.filter-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: var(--light-text-color);
+}
+
+.filter-group input[type="number"],
+.filter-group input[type="text"],
+.filter-group select {
+    width: calc(100% - 22px); /* Account for padding and border */
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.filter-group input[type="checkbox"],
+.filter-group input[type="radio"] {
+    margin-right: 8px;
+}
+
+/* Results Display (from results.html) */
+.real-estate-result {
+    display: flex;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    margin-bottom: 20px;
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+}
+
+.property-image {
+    flex-shrink: 0;
+    width: 180px;
+    height: 180px;
+    overflow: hidden;
+    background-color: var(--background-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.property-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.property-details {
+    padding: 15px;
+    flex-grow: 1;
+}
+
+.property-details h2 {
+    color: var(--primary-color);
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 1.4em;
+}
+
+.property-details ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 15px;
+}
+
+.property-details li {
+    margin-bottom: 5px;
+    color: var(--light-text-color);
+}
+
+.result-links span {
+    display: inline-block;
+    background-color: var(--accent-color);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin-right: 10px;
+    font-size: 0.8em;
+}
+
+.result-sources {
+    margin-top: 10px;
+    font-size: 0.85em;
+    color: var(--light-text-color);
+}

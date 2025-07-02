@@ -63,23 +63,36 @@ engines:
     disabled: false
 
   - name: us_census_bureau
-    engine: custom_engine
-    url: "https://api.census.gov/data/2020/dec/sf1?get=P1_001N&for=state:*" # Placeholder URL
-    # Further configuration for parsing results will go here
-    # For example, using 'json' or 'xpath' to extract data
-    # This will require actual API documentation and testing.
-    # Implementation Priority: HIGH
+    engine: us_census_bureau
+    shortcut: census
+    disabled: false
 
   - name: openstreetmap_nominatim
-    engine: custom_engine
-    url: "https://nominatim.openstreetmap.org/search?format=json&q={query}" # Placeholder URL
-    # Further configuration for parsing results will go here
-    # This will require actual API documentation and testing.
-    # Implementation Priority: HIGH
+    engine: openstreetmap_nominatim
+    shortcut: osm
+    disabled: false
+
+  - name: rentcast
+    engine: rentcast
+    shortcut: rc
+    disabled: false
+
+  - name: schooldigger
+    engine: schooldigger
+    shortcut: sd
+    disabled: false
+
+  - name: bing_maps
+    engine: bing_maps
+    shortcut: bm
+    disabled: false
 
 ui:
   static_use_hash: true
   default_theme: real_estate
+  themes:
+    - simple
+    - real_estate
   query_in_title: true
   center_alignment: true
   infinite_scroll: false
