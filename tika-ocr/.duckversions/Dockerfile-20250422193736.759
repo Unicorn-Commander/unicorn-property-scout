@@ -1,0 +1,22 @@
+FROM openjdk:17-slim
+
+# Install Tesseract and English language data
+RUN apt-get update && \
+    apt-get install -y \
+        tesseract-ocr \
+        tesseract-ocr-eng \
+        tesseract-ocr-osd \
+        curl && \
+    apt-get clean
+
+# Set Tesseract data path explicitly
+ENV TESSDATA_PREFIX=/usr/share/tesseract-ocr/4.00/tessdata
+
+# Download Apache Tika
+ENV TIKA_VERSION=3.1.0
+RUN curl -L -o /tika-server.jar https://downloads.apache.org/tika/${TIKA_VERSION}/tika-server-standard-${TIKA_VERSION}.jar
+
+# Expose the REST API port
+EXPOSE 9998
+
+CMD ["java", "-jar", "/tika-server.jar", "--enableUnsecureFeatures"]

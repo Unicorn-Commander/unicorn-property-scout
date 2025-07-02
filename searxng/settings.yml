@@ -1,0 +1,97 @@
+use_default_settings: true
+server:
+  bind_address: "0.0.0.0"
+  port: 18888
+  base_url: false
+  image_proxy: true
+  method: "GET"
+  http_protocol_version: "1.0"
+  secret_key: "${SEARXNG_SECRET}"
+
+search:
+  safe_search: 0
+  autocomplete: ""
+  default_lang: "all"
+  formats:
+    - json
+    - html
+  languages:
+    - all
+
+redis:
+  url: "${SEARXNG_REDIS_URL}"
+
+outgoing:
+  request_timeout: 6.0
+  max_request_timeout: 15.0
+  pool_connections: 100
+  pool_maxsize: 20
+  keepalive_expiry: 5.0
+  enable_http2: true
+  retries: 1
+  retry_on_http_error: true
+
+proxies:
+  http: "http://${BRIGHTDATA_USERNAME}:${BRIGHTDATA_PASSWORD}@${BRIGHTDATA_GATEWAY}:${BRIGHTDATA_PORT}"
+  https: "http://${BRIGHTDATA_USERNAME}:${BRIGHTDATA_PASSWORD}@${BRIGHTDATA_GATEWAY}:${BRIGHTDATA_PORT}"
+
+engines:
+  - name: google
+    engine: google
+    shortcut: g
+    disabled: false
+    use_mobile_ui: true
+
+  - name: bing
+    engine: bing
+    shortcut: b
+    disabled: false
+
+  - name: brave
+    engine: brave
+    shortcut: br
+    disabled: false
+
+  - name: duckduckgo
+    engine: duckduckgo
+    shortcut: d
+    disabled: false
+
+  - name: wikipedia
+    engine: wikipedia
+    shortcut: w
+    disabled: false
+
+  - name: us_census_bureau
+    engine: custom_engine
+    url: "https://api.census.gov/data/2020/dec/sf1?get=P1_001N&for=state:*" # Placeholder URL
+    # Further configuration for parsing results will go here
+    # For example, using 'json' or 'xpath' to extract data
+    # This will require actual API documentation and testing.
+    # Implementation Priority: HIGH
+
+  - name: openstreetmap_nominatim
+    engine: custom_engine
+    url: "https://nominatim.openstreetmap.org/search?format=json&q={query}" # Placeholder URL
+    # Further configuration for parsing results will go here
+    # This will require actual API documentation and testing.
+    # Implementation Priority: HIGH
+
+ui:
+  static_use_hash: true
+  default_theme: real_estate
+  query_in_title: true
+  center_alignment: true
+  infinite_scroll: false
+  results_on_new_tab: false
+  default_locale: "en"
+
+general:
+  debug: false
+
+real_estate:
+  cache_ttl:
+    property_data: 86400      # 24 hours
+    demographics: 604800      # 1 week  
+    school_data: 2592000     # 30 days
+    market_trends: 3600      # 1 hour

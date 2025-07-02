@@ -1,0 +1,62 @@
+version: '3.8'
+
+services:
+  redis:
+    image: redis:7-alpine
+    container_name: unicorn-redis-real-estate
+    restart: unless-stopped
+    command: >
+      redis-server
+      --maxmemory 4gb
+      --maxmemory-policy allkeys-lru
+    volumes:
+      - redis_data_real_estate:/data
+    ports:
+      - "16379:6379"
+    networks:
+      - unicorn-network-real-estate
+
+  searxng:
+    image: searxng/searxng:latest
+    container_name: unicorn-searxng-real-estate
+    restart: unless-stopped
+    volumes:
+      - ./searxng:/etc/searxng:rw
+    ports:
+      - "18888:18888"
+    networks:
+      - unicorn-network-real-estate
+    environment:
+      - BIND_ADDRESS=0.0.0.0:18888
+      - INSTANCE_NAME="Unicorn Commander Real Estate"
+      - SEARXNG_BASE_URL=http://localhost:18888/
+      - SEARXNG_REDIS_URL=redis://unicorn-redis-real-estate:6379/0
+      - SEARXNG_SECRET=${SEARXNG_SECRET}
+      - UWSGI_WORKERS=4
+      - UWSGI_THREADS=2
+      - UWSGI_CACHE2=name=searxcache,items=5000,blocks=5000,blocksize=8192,bitmap=1
+      - UWSGI_PLUGIN=python3
+      - UWSGI_MODULE=searx.webapp
+      - UWSGI_BUFFER_SIZE=8192
+    cap_drop:
+      - ALL
+    cap_add:
+      - CHOWN
+      - SETGID
+      - SETUID
+    depends_on:
+      - redis
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:18888/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+
+networks:
+  unicorn-network-real-estate:
+    driver: bridge
+    name: unicorn-network-real-estate
+
+volumes:
+  redis_data_real_estate:

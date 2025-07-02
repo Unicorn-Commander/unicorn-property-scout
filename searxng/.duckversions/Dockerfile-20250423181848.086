@@ -1,0 +1,46 @@
+FROM python:3.12-slim
+
+# Install dependencies
+RUN apt-get update && apt-get install -y \
+    uwsgi \
+    uwsgi-plugin-python3 \
+    git \
+    curl \
+    build-essential \
+    locales \
+    libxml2-dev \
+    libxslt1-dev \
+    zlib1g-dev \
+    libffi-dev \
+    libssl-dev \
+    && rm -rf /var/lib/apt/lists/* \
+    && locale-gen en_US.UTF-8
+
+# Clone SearXNG from source
+RUN git clone https://github.com/searxng/searxng /usr/local/searxng
+
+# Install SearXNG dependencies
+WORKDIR /usr/local/searxng
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Create a non-root user
+RUN adduser --disabled-password --gecos "" searxng
+
+# Set up configuration directory
+RUN mkdir -p /etc/searxng
+VOLUME /etc/searxng
+
+# Set working directory to the SearXNG application
+WORKDIR /usr/local/searxng/searx
+
+# Set environment variables
+ENV SEARXNG_SETTINGS_PATH=/etc/searxng/settings.yml
+
+# Expose the port defined in uwsgi.ini
+EXPOSE 8888
+
+# Switch to non-root user
+USER searxng
+
+# Start SearXNG with uWSGI
+CMD ["uwsgi", "--ini", "/etc/searxng/uwsgi.ini"]

@@ -1,0 +1,14 @@
+FROM apache/tika:latest
+
+USER root
+
+RUN apt-get update && \
+    apt-get install -y tesseract-ocr tesseract-ocr-eng && \
+    apt-get clean && \
+    mkdir -p /opt/tesseract && ln -s /usr/bin/tesseract /opt/tesseract/tesseract
+
+COPY tika-config.xml /usr/local/tika-config.xml
+
+ENV TIKA_CONFIG=/usr/local/tika-config.xml
+
+# Do not switch user; run as root

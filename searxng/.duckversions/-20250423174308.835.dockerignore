@@ -1,0 +1,46 @@
+# Git
+.git
+.gitignore
+
+# Build artifacts
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+*.o
+*.a
+
+# Development/IDE files
+.vscode
+.idea
+*.swp
+*.swo
+.DS_Store
+
+# Generated files
+settings.yml
+node_modules
+
+# Test files
+tests/
+test/
+.coverage
+htmlcov/
+
+# Documentation
+docs/
+*.md
+LICENSE
+
+# Local environment
+.env*
+.python-version
+venv/
+env/
+.venv/
+
+# Logs
+*.log
+logs/

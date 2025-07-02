@@ -1,0 +1,61 @@
+use_default_settings: true
+
+secret_key: "${SEARXNG_SECRET}"
+public_instance: false
+limiter: false
+
+server:
+  bind_address: "0.0.0.0"
+  port: 8888
+
+search:
+  formats:
+    - html
+    - json
+  languages:
+    - all
+
+redis:
+  url: "${SEARXNG_REDIS_URL}"
+
+outgoing:
+  request_timeout: 5.0
+  pool_connections: 100
+  pool_maxsize: 20
+
+engines:
+  brave_search:
+    module: json_engine
+    shortcut: bs
+    name: "Brave Search"
+    request:
+      method: GET
+      url: "https://api.search.brave.com/res/v1/web/search"
+      params:
+        q:   "{{ query }}"
+        key: "{{ BRAVE_API_KEY }}"
+    response:
+      items:   "items"
+      title:   "title"
+      url:     "link"
+      snippet: "description"
+
+  google_custom:
+    module: json_engine
+    shortcut: g
+    name: "Google Custom Search"
+    request:
+      method: GET
+      url: "https://www.googleapis.com/customsearch/v1"
+      params:
+        key: "{{ GOOGLE_API_KEY }}"
+        cx:  "{{ GOOGLE_CX }}"
+        q:   "{{ query }}"
+    response:
+      items:   "items"
+      title:   "title"
+      url:     "link"
+      snippet: "snippet"
+
+ui:
+  # customize static_path or templates_path if you need

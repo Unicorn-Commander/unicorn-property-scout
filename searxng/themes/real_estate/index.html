@@ -1,0 +1,64 @@
+{% extends "simple/base.html" %}
+{% from 'simple/icons.html' import icon_big %}
+{% block content %}
+<div class="real-estate-homepage">
+    <div class="header-section">
+        <h1>🏡 Real Estate Search</h1>
+        <p>"Your Private Property Intelligence Hub"</p>
+    </div>
+
+    <div class="search-section">
+        <form action="/search" method="get">
+            <input type="text" name="q" placeholder="Search: Address, ZIP, City, or Parcel #" class="search-input">
+            <button type="submit" class="search-button">🔍 Search</button>
+            <a href="/advanced-search" class="advanced-search-link">Advanced</a>
+        </form>
+        <div class="quick-filters">
+            <h3>Quick Filters:</h3>
+            <label><input type="checkbox" name="category" value="properties"> Properties</label>
+            <label><input type="checkbox" name="category" value="deeds"> Deeds</label>
+            <label><input type="checkbox" name="category" value="demographics"> Demographics</label>
+            <label><input type="checkbox" name="category" value="schools"> Schools</label>
+            <label><input type="checkbox" name="category" value="market_data"> Market Data</label>
+        </div>
+    </div>
+
+    <div class="insights-section">
+        <div class="saved-searches">
+            <h2>Saved Searches</h2>
+            <ul>
+                <li>• Downtown SF</li>
+                <li>• 94110 ZIP</li>
+                <li>• Foreclosures</li>
+            </ul>
+        </div>
+        <div class="market-insights">
+            <h2>Market Insights</h2>
+            <ul>
+                <li>• Median Price: $485K</li>
+                <li>• Inventory: ↓ 12%</li>
+                <li>• Days on Market: 23</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="recent-popular-section">
+        <div class="recent-searches">
+            <h2>Recent Searches</h2>
+            <ul>
+                <li>• 123 Main St</li>
+                <li>• Smith Property</li>
+                <li>• 94102 Demographics</li>
+            </ul>
+        </div>
+        <div class="popular-searches">
+            <h2>Popular Searches</h2>
+            <ul>
+                <li>• School Districts</li>
+                <li>• Price Trends</li>
+                <li>• New Listings</li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

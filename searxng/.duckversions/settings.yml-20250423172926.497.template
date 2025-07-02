@@ -1,0 +1,45 @@
+use_default_settings: true
+secret_key: "${SEARXNG_SECRET}"
+public_instance: false
+limiter: false
+
+server:
+  bind_address: "0.0.0.0"
+  port: 8888
+
+search:
+  formats:
+    - html
+    - json
+  languages:
+    - all
+
+redis:
+  url: "${SEARXNG_REDIS_URL}"
+
+outgoing:
+  request_timeout: 5.0
+  pool_connections: 100
+  pool_maxsize: 20
+  {% if USE_ROTATING_PROXY == "true" %}
+  proxies:
+    http: "http://${BRIGHTDATA_USERNAME}:${BRIGHTDATA_PASSWORD}@${BRIGHTDATA_GATEWAY}:${BRIGHTDATA_PORT}"
+    https: "http://${BRIGHTDATA_USERNAME}:${BRIGHTDATA_PASSWORD}@${BRIGHTDATA_GATEWAY}:${BRIGHTDATA_PORT}"
+  {% endif %}
+
+engines:
+  google:
+    engine: google
+    shortcut: g
+
+  bing:
+    engine: bing
+    shortcut: b
+
+  brave:
+    engine: brave
+    shortcut: br
+
+  ddg:
+    engine: duckduckgo
+    shortcut: d

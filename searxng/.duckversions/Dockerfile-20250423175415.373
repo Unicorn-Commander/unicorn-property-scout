@@ -1,0 +1,25 @@
+FROM python:3.12-slim
+
+RUN apt-get update && apt-get install -y \
+    uwsgi uwsgi-plugin-python3 \
+    git curl build-essential locales \
+    libxml2-dev libxslt1-dev zlib1g-dev \
+    libffi-dev libssl-dev \
+    && rm -rf /var/lib/apt/lists/* \
+    && locale-gen en_US.UTF-8 \
+    && git clone https://github.com/searxng/searxng /usr/local/searxng \
+    && pip install --no-cache-dir -r /usr/local/searxng/requirements.txt \
+    && adduser --disabled-password --gecos "" searxng
+
+# Create configuration directory
+RUN mkdir -p /etc/searxng
+VOLUME /etc/searxng
+
+WORKDIR /usr/local/searxng/searx
+ENV SEARXNG_SETTINGS_PATH=/etc/searxng/settings.yml
+
+# Expose the search engine port
+EXPOSE 8888
+
+USER searxng
+CMD ["uwsgi", "--ini", "/etc/searxng/uwsgi.ini"]
