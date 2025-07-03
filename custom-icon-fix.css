@@ -1,0 +1,27 @@
+/* MAGIC UNICORN ICON SIZE FIX - ULTIMATE OVERRIDE */
+html body svg,
+html body .sxng-icon-set-big,
+html body .ionicon,
+html body svg.sxng-icon-set-big,
+html body svg.ionicon,
+html body svg[viewBox="0 0 512 512"] {
+    width: 1rem !important;
+    height: 1rem !important;
+    max-width: 1rem !important;
+    max-height: 1rem !important;
+    min-width: 1rem !important;
+    min-height: 1rem !important;
+    display: inline-block !important;
+    vertical-align: middle !important;
+    flex-shrink: 0 !important;
+    box-sizing: border-box !important;
+}
+
+/* Navigation exception */
+html body #links_on_top svg,
+html body nav#links_on_top svg {
+    width: 1.125rem !important;
+    height: 1.125rem !important;
+    max-width: 1.125rem !important;
+    max-height: 1.125rem !important;
+}

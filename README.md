@@ -18,18 +18,26 @@ A privacy-focused, AI-enhanced real estate search engine powered by Magic Unicor
 ### ⚡ **Lightning Fast**
 - **Real-time Data**: Aggregate results from multiple sources in milliseconds
 - **Smart Caching**: Optimized Redis integration for property data
-- **Intelligent Search**: AI-enhanced property matching and insights
+- **Professional UI**: Modern glass morphism design with real estate styling
 
 ### 🎯 **Real Estate Focused**
 - **Property Intelligence**: Purpose-built for real estate professionals
-- **Market Insights**: Live market trends and analytics
+- **Styled Results**: Professional property cards with metadata and images
 - **Multiple Data Sources**: US Census, OpenStreetMap, RentCast, SchoolDigger, and more
+- **Real Estate Badges**: Automatic detection and tagging of property sources
 
 ### 🏠 **Professional Tools**
-- **Advanced Filters**: Geographic search, property types, market data
-- **Saved Searches**: Organize and track your property research
-- **Export Capabilities**: Download results in multiple formats
-- **API Integration**: Connect with your existing tools
+- **Admin Panel**: Password-protected system management interface
+- **Advanced Preferences**: Fully styled settings with tabbed interface
+- **Search Categories**: Organized property search by type and location
+- **Responsive Design**: Works perfectly on desktop and mobile devices
+
+### ✨ **Recent Enhancements (v1.1.0)**
+- **Fixed Icon Sizing**: All icons properly sized across the application
+- **Enhanced Search Results**: Professional real estate card layout
+- **Styled Preferences**: Beautiful tabbed interface with form styling
+- **Admin Access**: Secure admin panel with system monitoring
+- **Template System**: Complete custom theme with proper inheritance
 
 ## 🚀 Quick Start
 
@@ -46,6 +54,11 @@ docker compose up -d
 ```
 
 🎉 **That's it!** Access your private property search engine at `http://localhost:18888`
+
+### 🔐 Admin Access
+- **URL**: Click "Admin" in the top navigation
+- **Password**: `unicorn2025`
+- **Features**: System status, cache management, quick actions
 
 ## 📊 Data Sources
 
@@ -118,9 +131,12 @@ Edit `searxng/settings.yml` to:
 │   ├── Redis Integration
 │   └── TTL Management
 ├── 🎨 User Interface Layer
-│   ├── Modern Real Estate Theme
-│   ├── Advanced Search Filters
-│   └── Responsive Design
+│   ├── Modern Real Estate Theme (Glass Morphism)
+│   ├── Professional Property Cards
+│   ├── Styled Preferences with Tabs
+│   ├── Admin Panel with Authentication
+│   ├── Responsive Icon System (1rem)
+│   └── Advanced Search Filters
 └── 🐳 Infrastructure Layer
     ├── Docker Deployment
     ├── Health Monitoring

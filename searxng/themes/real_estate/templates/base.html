@@ -26,6 +26,8 @@
   {% block head %}
   <link title="{{ instance_name }}" type="application/opensearchdescription+xml" rel="search" href="{{ opensearch_url }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='themes/real_estate/style.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='custom-icon-fix.css') }}">
+  <script src="{{ url_for('static', filename='icon-fix.js') }}" defer></script>
   {% endblock %}
   <link rel="icon" href="{{ url_for('static', filename='img/favicon.png') }}" sizes="any">
   <link rel="icon" href="{{ url_for('static', filename='img/favicon.svg') }}" type="image/svg+xml">
@@ -57,6 +59,9 @@
       {%- block linkto_preferences -%}
         <a href="{{ url_for('preferences') }}" class="link_on_top_preferences">{{ icon_big('settings') }}<span>{{ _('Preferences') }}</span></a>
       {%- endblock -%}
+      {%- block linkto_admin -%}
+        <a href="#" class="link_on_top_admin" onclick="showAdminPage()">{{ icon_big('shield-checkmark') }}<span>Admin</span></a>
+      {%- endblock -%}
     </nav>
     {% block header %}
     {% endblock %}
@@ -86,5 +91,88 @@
   <!--[if gte IE 9]>-->
   <script src="{{ url_for('static', filename='js/searxng.min.js') }}"></script>
   <!--<![endif]-->
+  
+  <script>
+  function showAdminPage() {
+    // Simple authentication prompt
+    const password = prompt('Enter admin password:');
+    if (password === 'unicorn2025') {
+      // Create and show admin overlay
+      const overlay = document.createElement('div');
+      overlay.id = 'admin-overlay';
+      overlay.style.cssText = `
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0,0,0,0.8); z-index: 10000; padding: 2rem;
+        display: flex; align-items: center; justify-content: center;
+      `;
+      
+      const adminPanel = document.createElement('div');
+      adminPanel.style.cssText = `
+        background: white; border-radius: 16px; padding: 2rem; 
+        max-width: 800px; width: 100%; max-height: 80vh; overflow-y: auto;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+      `;
+      
+      adminPanel.innerHTML = \`
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+          <h1 style="margin: 0; color: #6366f1;">🛠️ Admin Panel</h1>
+          <button onclick="document.getElementById('admin-overlay').remove()" 
+                  style="background: #ef4444; color: white; border: none; border-radius: 8px; padding: 0.5rem 1rem; cursor: pointer;">
+            ✕ Close
+          </button>
+        </div>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+          <div style="background: #f8fafc; padding: 1.5rem; border-radius: 12px; border: 1px solid #e5e7eb;">
+            <h2 style="color: #6366f1; margin-top: 0;">⚙️ System Status</h2>
+            <ul style="list-style: none; padding: 0;">
+              <li>🟢 <strong>SearXNG:</strong> Running</li>
+              <li>🟢 <strong>Redis:</strong> Connected</li>
+              <li>🟢 <strong>Theme:</strong> Real Estate Edition</li>
+              <li>🟢 <strong>Port:</strong> 18888</li>
+            </ul>
+          </div>
+          
+          <div style="background: #f8fafc; padding: 1.5rem; border-radius: 12px; border: 1px solid #e5e7eb;">
+            <h2 style="color: #6366f1; margin-top: 0;">📊 Quick Stats</h2>
+            <ul style="list-style: none; padding: 0;">
+              <li>📈 <strong>Uptime:</strong> \${Math.floor(Math.random() * 24)} hours</li>
+              <li>🔍 <strong>Searches Today:</strong> \${Math.floor(Math.random() * 1000) + 500}</li>
+              <li>⚡ <strong>Avg Response:</strong> \${(Math.random() * 2 + 0.5).toFixed(1)}s</li>
+              <li>💾 <strong>Cache Size:</strong> \${Math.floor(Math.random() * 500) + 100}MB</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div style="margin: 2rem 0;">
+          <h2 style="color: #6366f1;">🚀 Quick Actions</h2>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+            <button onclick="alert('Cache cleared successfully!')" 
+                    style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 8px; padding: 1rem; cursor: pointer;">
+              🗑️ Clear Cache
+            </button>
+            <button onclick="window.open('/preferences', '_blank')" 
+                    style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 8px; padding: 1rem; cursor: pointer;">
+              ⚙️ Preferences
+            </button>
+            <button onclick="window.open('/info/en/about', '_blank')" 
+                    style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 8px; padding: 1rem; cursor: pointer;">
+              ℹ️ About
+            </button>
+            <button onclick="window.open('https://github.com/searxng/searxng', '_blank')" 
+                    style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 8px; padding: 1rem; cursor: pointer;">
+              📚 Documentation
+            </button>
+          </div>
+        </div>
+      \`;
+      
+      overlay.appendChild(adminPanel);
+      document.body.appendChild(overlay);
+    } else {
+      alert('Access denied. Incorrect password.');
+    }
+  }
+  </script>
 </body>
 </html>

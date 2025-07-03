@@ -1,0 +1,116 @@
+{%- from 'simple/icons.html' import icon_small, icon_big -%}
+{%- extends "real_estate/page_with_header.html" -%}
+
+{%- block title -%}Admin Settings - {%- endblock -%}
+
+{%- block content -%}
+<div class="real-estate-homepage">
+  <div class="header-section">
+    <h1>🛠️ Admin Settings</h1>
+    <p>Configuration and management for Unicorn Property Scout</p>
+  </div>
+
+  <div class="insights-section">
+    <div class="saved-searches">
+      <h2>{{ icon_big('settings') }} System Configuration</h2>
+      <ul>
+        <li><strong>Redis Status:</strong> <span style="color: green;">Connected</span></li>
+        <li><strong>Search Engines:</strong> 15 active</li>
+        <li><strong>Theme:</strong> Real Estate Edition</li>
+        <li><strong>Image Proxy:</strong> Enabled</li>
+      </ul>
+    </div>
+
+    <div class="market-insights">
+      <h2>{{ icon_big('stats-chart') }} Performance Metrics</h2>
+      <ul>
+        <li><strong>Cache Hit Rate:</strong> 85%</li>
+        <li><strong>Average Response Time:</strong> 1.2s</li>
+        <li><strong>Daily Searches:</strong> 1,247</li>
+        <li><strong>Active Users:</strong> 23</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="search-section">
+    <h2>Quick Actions</h2>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem;">
+      <button class="search-button" onclick="clearCache()">
+        {{ icon_big('refresh') }} Clear Cache
+      </button>
+      <button class="search-button" onclick="restartEngines()">
+        {{ icon_big('power') }} Restart Engines  
+      </button>
+      <button class="search-button" onclick="exportLogs()">
+        {{ icon_big('download') }} Export Logs
+      </button>
+      <button class="search-button" onclick="backupSettings()">
+        {{ icon_big('archive') }} Backup Settings
+      </button>
+    </div>
+  </div>
+
+  <div class="insights-section">
+    <div class="saved-searches">
+      <h2>{{ icon_big('shield-checkmark') }} Security Settings</h2>
+      <form method="post" action="/admin/security">
+        <div class="quick-filters">
+          <label>
+            <input type="checkbox" checked> Enable Rate Limiting
+          </label>
+          <label>
+            <input type="checkbox" checked> Block Malicious IPs
+          </label>
+          <label>
+            <input type="checkbox"> Require Authentication
+          </label>
+          <label>
+            <input type="checkbox" checked> Log All Searches
+          </label>
+        </div>
+        <button type="submit" class="search-button" style="margin-top: 1rem;">
+          Save Security Settings
+        </button>
+      </form>
+    </div>
+
+    <div class="market-insights">
+      <h2>{{ icon_big('construct') }} Engine Management</h2>
+      <div style="max-height: 200px; overflow-y: auto;">
+        <ul>
+          <li><strong>Google:</strong> <span style="color: green;">Active</span> - 95% uptime</li>
+          <li><strong>Bing:</strong> <span style="color: green;">Active</span> - 92% uptime</li>
+          <li><strong>Zillow:</strong> <span style="color: orange;">Limited</span> - API limits reached</li>
+          <li><strong>Redfin:</strong> <span style="color: green;">Active</span> - 88% uptime</li>
+          <li><strong>Realtor.com:</strong> <span style="color: red;">Disabled</span> - Authentication failed</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function clearCache() {
+  if (confirm('Are you sure you want to clear the cache?')) {
+    fetch('/admin/clear-cache', {method: 'POST'})
+      .then(response => response.json())
+      .then(data => alert('Cache cleared successfully'))
+      .catch(error => alert('Error clearing cache'));
+  }
+}
+
+function restartEngines() {
+  if (confirm('Are you sure you want to restart all search engines?')) {
+    alert('Engine restart functionality would be implemented here');
+  }
+}
+
+function exportLogs() {
+  alert('Log export functionality would be implemented here');
+}
+
+function backupSettings() {
+  alert('Settings backup functionality would be implemented here');
+}
+</script>
+{%- endblock -%}

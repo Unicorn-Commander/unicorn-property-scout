@@ -1,0 +1,194 @@
+{%- extends "real_estate/page_with_header.html" -%}
+{%- from 'simple/icons.html' import icon_big -%}
+
+{%- block title -%}{{ title }} - {%- endblock -%}
+
+{%- block content -%}
+<div class="real-estate-homepage">
+  <div class="header-section">
+    <h1>{{ title }}</h1>
+    {% if rtl %}
+    <p style="direction: ltr;">{{ _('About') }} {{ instance_name }}</p>
+    {% else %}
+    <p>{{ _('About') }} {{ instance_name }}</p>
+    {% endif %}
+  </div>
+
+  <div class="search-section">
+    <div class="info-content">
+      {{ content|safe }}
+    </div>
+  </div>
+
+  {% if endpoint == 'about' %}
+  <div class="insights-section">
+    <div class="saved-searches">
+      <h2>{{ icon_big('information-circle') }} System Information</h2>
+      <ul>
+        <li><strong>Version:</strong> {{ searx_version }}</li>
+        <li><strong>Theme:</strong> Real Estate Edition</li>
+        <li><strong>Source:</strong> <a href="{{ searx_git_url }}">{{ _('Source code') }}</a></li>
+        {% if get_setting('brand.issue_url') %}
+        <li><strong>Issues:</strong> <a href="{{ get_setting('brand.issue_url') }}">{{ _('Issue tracker') }}</a></li>
+        {% endif %}
+      </ul>
+    </div>
+
+    <div class="market-insights">
+      <h2>{{ icon_big('shield-checkmark') }} Privacy Features</h2>
+      <ul>
+        <li>🔒 No tracking or logging</li>
+        <li>🚫 No user profiling</li>
+        <li>🌐 Aggregated results from multiple engines</li>
+        <li>🔐 Optional proxy support</li>
+        <li>⚡ Fast and efficient</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="insights-section">
+    <div class="saved-searches">
+      <h2>{{ icon_big('construct') }} Real Estate Features</h2>
+      <ul>
+        <li>🏡 Property search across multiple platforms</li>
+        <li>📊 Market data aggregation</li>
+        <li>🗺️ Location-based filtering</li>
+        <li>🏫 School district information</li>
+        <li>📈 Property history and trends</li>
+      </ul>
+    </div>
+
+    <div class="market-insights">
+      <h2>{{ icon_big('globe') }} Data Sources</h2>
+      <ul>
+        <li>🏢 Major real estate platforms</li>
+        <li>🏛️ Government property records</li>
+        <li>📍 Geographic information systems</li>
+        <li>🏫 Educational institutions data</li>
+        <li>🚌 Transportation networks</li>
+      </ul>
+    </div>
+  </div>
+  {% endif %}
+
+  {% if endpoint == 'stats' %}
+  <div class="insights-section">
+    <div class="saved-searches" style="grid-column: 1 / -1;">
+      <h2>{{ icon_big('stats-chart') }} Engine Statistics</h2>
+      {% if stats %}
+      <div style="overflow-x: auto;">
+        <table style="width: 100%; border-collapse: collapse; margin-top: 1rem;">
+          <thead>
+            <tr>
+              <th>Engine</th>
+              <th>Status</th>
+              <th>Response Time</th>
+              <th>Reliability</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for engine_name, engine_stats in stats.items() %}
+            <tr>
+              <td><strong>{{ engine_name }}</strong></td>
+              <td>
+                {% if engine_stats.get('time') %}
+                <span style="color: green;">Active</span>
+                {% else %}
+                <span style="color: red;">Inactive</span>
+                {% endif %}
+              </td>
+              <td>{{ engine_stats.get('time', 'N/A') }}</td>
+              <td>{{ engine_stats.get('reliability', 'N/A') }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% else %}
+      <p>Statistics not available.</p>
+      {% endif %}
+    </div>
+  </div>
+  {% endif %}
+
+  <div class="search-section">
+    <div style="text-align: center;">
+      <a href="{{ url_for('index') }}" class="search-button">
+        {{ icon_big('home') }} Back to Search
+      </a>
+    </div>
+  </div>
+</div>
+
+<style>
+.info-content {
+  line-height: 1.8;
+  color: var(--text-primary);
+}
+
+.info-content h1, .info-content h2, .info-content h3 {
+  color: var(--primary-color);
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+.info-content h1:first-child {
+  margin-top: 0;
+}
+
+.info-content p {
+  margin-bottom: 1rem;
+}
+
+.info-content a {
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+.info-content a:hover {
+  color: var(--secondary-color);
+  text-decoration: underline;
+}
+
+.info-content ul, .info-content ol {
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.info-content li {
+  margin-bottom: 0.5rem;
+}
+
+.info-content code {
+  background: var(--bg-secondary);
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-family: 'Courier New', monospace;
+  color: var(--primary-color);
+}
+
+.info-content pre {
+  background: var(--bg-secondary);
+  padding: 1rem;
+  border-radius: var(--border-radius);
+  overflow-x: auto;
+  margin: 1rem 0;
+}
+
+.insights-section table th {
+  background: var(--primary-color);
+  color: white;
+  padding: 1rem;
+  text-align: left;
+}
+
+.insights-section table td {
+  padding: 0.75rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.insights-section table tr:hover {
+  background: rgba(99, 102, 241, 0.05);
+}
+</style>
+{%- endblock -%}
